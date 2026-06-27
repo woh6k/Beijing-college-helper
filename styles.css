@@ -146,3 +146,8 @@
   height: auto;
   border-radius: 6px;
 }
+
+.school-name {
+  color: #c61212;
+  font-weight: 900;
+}

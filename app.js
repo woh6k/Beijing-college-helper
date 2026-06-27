@@ -53,7 +53,7 @@ function getFilters() {
   return {
     score: Number(scoreInput.value) || 0,
     subjects: selectedSubjects(),
-    keyword: keywordInput.value.trim().toLowerCase(),
+    keywords: keywordInput.value.trim().toLowerCase().split(/[\s,，;；、|]+/).filter(Boolean),
     acceptCoop: acceptCoop.checked,
     acceptOutsideBeijing: acceptOutsideBeijing.checked,
     onlyBeijing: onlyBeijing.checked,
@@ -76,9 +76,9 @@ function baseFilteredRows(filters) {
     if (filters.onlyBeijing && !item.inBeijing) return false;
     if (!filters.acceptOutsideBeijing && !item.inBeijing) return false;
     if (filters.level && !(item.level || "").includes(filters.level)) return false;
-    if (filters.keyword) {
+    if (filters.keywords.length) {
       const haystack = (item.school + " " + item.major + " " + item.location + " " + item.subject + " " + item.groupName + " " + item.level).toLowerCase();
-      if (!haystack.includes(filters.keyword)) return false;
+      if (!filters.keywords.some((keyword) => haystack.includes(keyword))) return false;
     }
     return true;
   });
@@ -263,6 +263,7 @@ acceptOutsideBeijing.addEventListener("input", () => {
 });
 
 filterData();
+
 
 
 
