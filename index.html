@@ -1,0 +1,69 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2026 北京高考志愿匹配助手</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="search-panel" aria-label="志愿匹配条件">
+      <div class="brand-row">
+        <div>
+          <p class="eyebrow">2026 北京考生参考</p>
+          <h1>志愿匹配助手</h1>
+        </div>
+        <div class="top-actions">
+          <a class="text-link" href="./notice.html">表格说明 / 出处声明</a>
+          <div class="source-note" id="sourceNote"></div>
+        </div>
+      </div>
+
+      <div class="controls-grid">
+        <label class="field score-field"><span>高考分数</span><input id="scoreInput" type="number" inputmode="numeric" min="300" max="750" value="600"></label>
+        <fieldset class="field subject-field">
+          <legend>选考科目</legend>
+          <div class="subject-options" id="subjectOptions">
+            <label><input type="checkbox" value="物理">物理</label><label><input type="checkbox" value="化学">化学</label><label><input type="checkbox" value="生物">生物</label>
+            <label><input type="checkbox" value="历史">历史</label><label><input type="checkbox" value="地理">地理</label><label><input type="checkbox" value="政治">政治</label>
+          </div>
+        </fieldset>
+        <label class="field keyword-field"><span>搜索院校或专业</span><input id="keywordInput" type="search" placeholder="例如：计算机、北邮、医学"></label>
+      </div>
+
+      <details class="advanced" open>
+        <summary>高级筛选</summary>
+        <div class="advanced-grid">
+          <label class="toggle"><input id="acceptCoop" type="checkbox">接受中外合作/合作办学</label>
+          <label class="toggle"><input id="acceptOutsideBeijing" type="checkbox" checked>接受京外院校</label>
+          <label class="toggle"><input id="onlyBeijing" type="checkbox">只看北京院校</label>
+          <label class="field"><span>院校层次</span><select id="levelSelect"><option value="">全部</option><option value="985">985</option><option value="211">211</option><option value="双一流">双一流</option><option value="公办">公办</option><option value="民办">民办</option></select></label>
+        </div>
+      </details>
+    </section>
+
+    <section class="summary-band" aria-label="匹配概览">
+      <div><span class="summary-label">匹配范围</span><strong id="rangeText">570 - 605</strong></div>
+      <div><span class="summary-label">可报专业</span><strong id="totalCount">0</strong></div>
+      <div><span class="summary-label">院校数量</span><strong id="schoolCount">0</strong></div>
+      <button id="exportBtn" type="button">导出当前结果</button>
+    </section>
+
+    <section class="tabs" aria-label="冲稳保分类">
+      <button class="tab active" data-bucket="all" type="button">全部</button>
+      <button class="tab" data-bucket="冲" type="button">冲 <span id="rushCount">0</span></button>
+      <button class="tab" data-bucket="稳" type="button">稳 <span id="steadyCount">0</span></button>
+      <button class="tab" data-bucket="保" type="button">保 <span id="safeCount">0</span></button>
+    </section>
+
+    <section class="results" aria-live="polite">
+      <div class="result-head"><p id="resultHint"></p><select id="sortSelect" aria-label="排序方式"><option value="scoreDesc">估分从高到低</option><option value="scoreAsc">估分从低到高</option><option value="school">按院校名称</option></select></div>
+      <div id="resultList" class="result-list"></div>
+    </section>
+  </main>
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
+
