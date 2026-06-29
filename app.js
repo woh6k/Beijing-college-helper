@@ -62,7 +62,17 @@ function getFilters() {
   };
 }
 
-function baseFilteredRows(filters) {
+function displayLevel(item) {
+  if (item.doubleFirstClass || item.level === "216") return "双一流";
+  return item.level || "";
+}
+
+function levelMatches(item, selectedLevel) {
+  const text = item.level || "";
+  if (!selectedLevel) return true;
+  if (selectedLevel === "双一流") return !!item.doubleFirstClass || text === "216" || /双一流|一流/.test(text);
+  return text.includes(selectedLevel);
+}function baseFilteredRows(filters) {
   const low = filters.score - 30;
   const high = filters.score + 5;
   return data.map((item) => {
@@ -75,9 +85,9 @@ function baseFilteredRows(filters) {
     if (!filters.acceptCoop && item.cooperative) return false;
     if (filters.onlyBeijing && !item.inBeijing) return false;
     if (!filters.acceptOutsideBeijing && !item.inBeijing) return false;
-    if (filters.level && !(item.level || "").includes(filters.level)) return false;
+    if (!levelMatches(item, filters.level)) return false;
     if (filters.keywords.length) {
-      const haystack = (item.school + " " + item.major + " " + item.location + " " + item.subject + " " + item.groupName + " " + item.level).toLowerCase();
+      const haystack = (item.school + " " + item.major + " " + item.location + " " + item.subject + " " + item.groupName + " " + item.level + " " + displayLevel(item)).toLowerCase();
       if (!filters.keywords.some((keyword) => haystack.includes(keyword))) return false;
     }
     return true;
@@ -166,7 +176,7 @@ function renderSchoolGroup(group, sort) {
     return count ? name + count : "";
   }).filter(Boolean).join(" · ");
   const schoolTags = [
-    lead.level,
+    displayLevel(lead),
     lead.inBeijing ? "北京" : "京外",
     Math.min(...scoreValues) === Math.max(...scoreValues) ? Math.max(...scoreValues) + "分" : Math.min(...scoreValues) + "-" + Math.max(...scoreValues) + "分",
     bucketSummary,
@@ -263,6 +273,9 @@ acceptOutsideBeijing.addEventListener("input", () => {
 });
 
 filterData();
+
+
+
 
 
 
