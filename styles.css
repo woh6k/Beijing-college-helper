@@ -151,3 +151,80 @@
   color: #c61212;
   font-weight: 900;
 }
+
+.visit-widget {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 30;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 4px 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid rgba(11, 47, 91, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 28px rgba(23, 32, 51, 0.12);
+  color: #0b2f5b;
+  backdrop-filter: blur(8px);
+}
+
+.visit-widget div {
+  display: flex;
+  gap: 5px;
+  align-items: baseline;
+  font-size: 12px;
+}
+
+.visit-widget span,
+.visit-widget small {
+  color: var(--muted);
+}
+
+.visit-widget strong {
+  font-size: 14px;
+}
+
+.visit-widget small {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  text-align: right;
+}
+
+.guard-panel {
+  position: fixed;
+  inset: auto 18px 18px auto;
+  z-index: 50;
+  width: min(360px, calc(100% - 36px));
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  border: 1px solid rgba(182, 66, 40, 0.22);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 18px 45px rgba(23, 32, 51, 0.16);
+  color: var(--ink);
+}
+
+.guard-panel strong {
+  color: var(--rush);
+}
+
+.guard-panel span {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+body.guard-blocked .app-shell {
+  pointer-events: none;
+  opacity: 0.64;
+}
+
+@media (max-width: 640px) {
+  .visit-widget {
+    right: 10px;
+    bottom: 10px;
+    padding: 8px 10px;
+  }
+}

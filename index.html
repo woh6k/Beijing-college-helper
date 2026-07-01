@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>2026 北京高考填报助手</title>
   <link rel="stylesheet" href="./styles.css">
+  <script src="./protection.js"></script>
 </head>
 <body>
   <main class="app-shell">
@@ -62,8 +63,14 @@
       <div id="resultList" class="result-list"></div>
     </section>
   </main>
+  <aside class="visit-widget" aria-label="访问统计">
+    <div><span>访客</span><strong id="busuanzi_value_site_uv">--</strong></div>
+    <div><span>访问</span><strong id="busuanzi_value_site_pv">--</strong></div>
+    <small id="statsFallback">统计加载中</small>
+  </aside>
   <script src="./data.js"></script>
   <script src="./app.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
 </html>
 

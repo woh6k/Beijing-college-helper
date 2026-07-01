@@ -72,7 +72,9 @@ function levelMatches(item, selectedLevel) {
   if (!selectedLevel) return true;
   if (selectedLevel === "双一流") return !!item.doubleFirstClass || text === "216" || /双一流|一流/.test(text);
   return text.includes(selectedLevel);
-}function baseFilteredRows(filters) {
+}
+
+function baseFilteredRows(filters) {
   const low = filters.score - 30;
   const high = filters.score + 5;
   return data.map((item) => {
@@ -132,6 +134,7 @@ function groupedSortRows(rows, sort) {
 }
 
 function filterData() {
+  if (window.siteGuard && !window.siteGuard.recordAction()) return;
   const filters = getFilters();
   const low = filters.score - 30;
   const high = filters.score + 5;
@@ -156,7 +159,8 @@ function render(rows, bucketCounts, filters) {
   schoolCount.textContent = new Set(rows.map((item) => item.school)).size;
   rushCount.textContent = bucketCounts.rush;
   steadyCount.textContent = bucketCounts.steady;
-  safeCount.textContent = bucketCounts.safe;  resultHint.textContent = rows.length ? "显示 " + rows.length + " 条结果，同一学校与同一专业组已合并显示。" : "没有找到符合条件的专业，可以放宽筛选条件。";
+  safeCount.textContent = bucketCounts.safe;
+  resultHint.textContent = rows.length ? "显示 " + rows.length + " 条结果，同一学校与同一专业组已合并显示。" : "没有找到符合条件的专业，可以放宽筛选条件。";
 
   if (!rows.length) {
     resultList.innerHTML = '<div class="empty">暂无匹配结果</div>';
@@ -206,7 +210,8 @@ function renderMajorGroup(items) {
 }
 
 function renderMajorRow(item) {
-  const tags = [    item.cooperative ? "合作办学" : "",
+  const tags = [
+    item.cooperative ? "合作办学" : "",
     item.plan ? "计划 " + item.plan : "",
     item.page ? "页码 " + item.page : "",
   ].filter(Boolean);
